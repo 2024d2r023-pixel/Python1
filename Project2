@@ -1,0 +1,88 @@
+accounts = {}   
+
+
+def verify_mobile():
+    """Verify mobile number: must be 10 digits and start with 9"""
+    mobile = input("Enter your Mobile Number: ")
+
+    if len(mobile) == 10 and mobile.isdigit() and mobile.startswith("9"):
+        print("✔ Mobile number verified!")
+        return mobile
+    else:
+        print("✘ Invalid Mobile Number! Please try again.\n")
+        return verify_mobile()
+
+
+def show_menu():
+    print("\n===== BANK MENU =====")
+    print("1. Create Account")
+    print("2. Check Balance")
+    print("3. Deposit Money")
+    print("4. Withdraw Money")
+    print("5. Exit")
+    print("=====================")
+
+
+def create_account(mobile):
+    if mobile in accounts:
+        print("Account already exists!")
+    else:
+        accounts[mobile] = 0
+        print("✔ Account created successfully!")
+
+
+def check_balance(mobile):
+    if mobile in accounts:
+        print(f"Your balance: ₹{accounts[mobile]}")
+    else:
+        print("No account found! Please create one first.")
+
+
+def deposit(mobile):
+    if mobile not in accounts:
+        print("No account found! Create one first.")
+        return
+
+    amount = int(input("Enter amount to deposit: "))
+    accounts[mobile] += amount
+    print("✔ Money deposited successfully!")
+
+
+def withdraw(mobile):
+    if mobile not in accounts:
+        print("No account found! Create one first.")
+        return
+
+    amount = int(input("Enter amount to withdraw: "))
+    if amount <= accounts[mobile]:
+        accounts[mobile] -= amount
+        print("✔ Withdrawal successful!")
+    else:
+        print("✘ Not enough balance!")
+
+
+# -----------------------------------------
+# MAIN PROGRAM
+# -----------------------------------------
+
+print("===== Welcome to Bank System =====")
+
+user_mobile = verify_mobile()   # Step 1: Verify mobile
+
+while True:
+    show_menu()                 # Step 2: Show Menu
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        create_account(user_mobile)
+    elif choice == "2":
+        check_balance(user_mobile)
+    elif choice == "3":
+        deposit(user_mobile)
+    elif choice == "4":
+        withdraw(user_mobile)
+    elif choice == "5":
+        print("Thank you for using the Bank System!")
+        break
+    else:
+        print("Invalid choice! Try again.")
