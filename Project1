@@ -1,0 +1,15 @@
+import datetime
+
+def welcome_application():
+    """
+    Prompts the user for their name, displays a welcome message,
+    and then shows the current date and time.
+    """
+    user_name = input("Enter your username: ")
+    print(f"Welcome to my application, {user_name}!")
+
+    current_datetime = datetime.datetime.now()
+    print(f"Date and Time: {current_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+
+if __name__ == "__main__":
+    welcome_application()
